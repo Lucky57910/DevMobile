@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Text, Input, Button, Layout, Divider, List, ListItem } from '@ui-kitten/components';
 import { Platform, Alert, StyleSheet, Image, ImageBackground, View, TouchableOpacity } from 'react-native';
 import * as Location from 'expo-location';
+import { connect } from 'react-redux';
 
 import Assets from '../Definition/Assets';
 
-const DeuxiemePage = ({ route, navigation }) => {
+const DeuxiemePage = ({ route, navigation, favFilm, dispatch }) => {
 
     const { film } = route.params;
     const { credit } = route.params;
@@ -24,6 +25,37 @@ const DeuxiemePage = ({ route, navigation }) => {
         />
     );
 
+    const saveFilm = async () => {
+        const action = { type: 'SAVE_FILM', value: film.id };
+        dispatch(action);
+      }
+
+      const unsaveFilm = async () => {
+        const action = { type: 'UNSAVE_FILM', value: film.id };
+        dispatch(action);
+      }
+
+    const displaySaveFilm = () => {
+    console.log(favFilm)
+
+        if (favFilm.findIndex(i => i === film.id) !== -1) {
+          // Le restaurant est sauvegardé
+          return (
+            <Button
+              title='Retirer des déjà vu'
+              onPress={unsaveFilm}
+            >Unsave</Button>
+          );
+        }
+        // Le restaurant n'est pas sauvegardé
+        return (
+          <Button
+            title='Ajouter aux déjà vu'
+            onPress={saveFilm}
+          >Save</Button>
+        );
+      }
+
     return (
         <Layout style={styles.Megacontainer}>
             <Layout style={styles.container}>
@@ -39,6 +71,7 @@ const DeuxiemePage = ({ route, navigation }) => {
             </Layout>
             <Text style={styles.espace}>Resume: </Text>
             <Text style={styles.espace}>{film.overview}</Text>
+            {displaySaveFilm()}
             <Text style={styles.espace}>Cast({credit.cast.length}) </Text>
             <List
                 style={styles.containerListe}
@@ -50,7 +83,13 @@ const DeuxiemePage = ({ route, navigation }) => {
     );
 };
 
-export default DeuxiemePage;
+const mapStateToProps = (state) => {
+  return {
+    favFilm: state.favFilmID
+  }
+}
+
+export default connect(mapStateToProps)(DeuxiemePage);
 
 const styles = StyleSheet.create({
     container: {

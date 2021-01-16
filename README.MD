@@ -17,8 +17,8 @@ afichage des membres du cast,
 * Un clic redirige sur la page du film : Fait
 * Affichage des informations générales d'un film : Fait
 * Affichage du casting d'un film (+nbr d'acteurs) : Fait (avec le nombre d'acteurs)
-* Possibilité de marquer un film comme visionné : 
-* Possibilité de retirer un film des visionnés : 
+* Possibilité de marquer un film comme visionné : Fait
+* Possibilité de retirer un film des visionnés : Fait
 * Affichage des films visionnés :
 * Un clic redirige sur la page du film :
 
