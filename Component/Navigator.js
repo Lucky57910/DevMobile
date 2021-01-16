@@ -69,7 +69,7 @@ function RootStack() {
         })}
       />
       <TabNavigation.Screen
-        name="Favoris"
+        name="Déjà Vu"
         component={favStackScreens}
         options={() => ({
           tabBarIcon: ({ color }) => {
